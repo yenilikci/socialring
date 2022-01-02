@@ -16,7 +16,7 @@ class UserSignupPage extends React.Component {
             [name]: value
         })
     }
-
+  
     //overrided render method
     render() {
         return (
