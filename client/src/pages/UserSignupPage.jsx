@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {signup} from '../api/apiCalls';
 
 //stateful component
 class UserSignupPage extends React.Component {
@@ -19,7 +20,7 @@ class UserSignupPage extends React.Component {
         })
     }
 
-    onClickSignUp = event => {
+    onClickSignUp = async event => {
         event.preventDefault();
 
         const {username, displayName, password} = this.state;
@@ -32,17 +33,24 @@ class UserSignupPage extends React.Component {
 
         this.setState({pendingApiCall: true});
 
-        axios.post("/api/1.0/users",
-            body
-        ).then(response => {
+        // signup(body).then(response => {
+        //     this.setState({pendingApiCall: false});
+        // }).catch(error => {
+        //     this.setState({pendingApiCall: false});
+        // });
+        
+        try{
+            const response = await signup(body);
             this.setState({pendingApiCall: false});
-        }).catch(error => {
+        } catch(error) {
             this.setState({pendingApiCall: false});
-        });
+        }
+
     }
 
     //overrided render method
     render() {
+        const {pendingApiCall} = this.state;
         return (
           <div className="container">
               <form>
@@ -82,10 +90,10 @@ class UserSignupPage extends React.Component {
                   </div>
                   <div className="text-center">
                       <button
-                          disabled={this.state.pendingApiCall}
+                          disabled={pendingApiCall}
                           className="btn btn-primary"
                           onClick={this.onClickSignUp}>
-                          {this.state.pendingApiCall && <span className="spinner-border spinner-border-sm"></span>} Sign Up
+                          {pendingApiCall && <span className="spinner-border spinner-border-sm"></span>} Sign Up
                       </button>
                   </div>
               </form>
