@@ -9,6 +9,7 @@ class UserSignupPage extends React.Component {
         displayName: null,
         password: null,
         passwordRepeat: null,
+        pendingApiCall: false
     }
 
     onChange = event => {
@@ -28,9 +29,16 @@ class UserSignupPage extends React.Component {
             displayName,
             password
         };
+
+        this.setState({pendingApiCall: true});
+
         axios.post("/api/1.0/users",
             body
-        );
+        ).then(response => {
+            this.setState({pendingApiCall: false});
+        }).catch(error => {
+            this.setState({pendingApiCall: false});
+        });
     }
 
     //overrided render method
@@ -74,8 +82,10 @@ class UserSignupPage extends React.Component {
                   </div>
                   <div className="text-center">
                       <button
+                          disabled={this.state.pendingApiCall}
                           className="btn btn-primary"
-                          onClick={this.onClickSignUp}>Sign Up
+                          onClick={this.onClickSignUp}>
+                          {this.state.pendingApiCall && <span className="spinner-border spinner-border-sm"></span>} Sign Up
                       </button>
                   </div>
               </form>
