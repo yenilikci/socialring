@@ -3,6 +3,8 @@ package com.hoaxify.ws.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class UserController {
 	@CrossOrigin
 	@PostMapping("/api/1.0/users")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> createUser(@RequestBody User user) {
+	public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
 		ApiError error = new ApiError(400, "Validation error", "/api/1.0/users");
 		Map<String, String> validationErrors = new HashMap<>();
 		
