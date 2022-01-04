@@ -10,13 +10,21 @@ class UserSignupPage extends React.Component {
         displayName: null,
         password: null,
         passwordRepeat: null,
-        pendingApiCall: false
-    }
+        pendingApiCall: false,
+        errors: {
+            username: ""
+        }
+    };
 
     onChange = event => {
         const {name, value} = event.target;
+
+        const errors = {...this.state.errors}
+        errors[name] = undefined
+
         this.setState({
-            [name]: value
+            [name]: value,
+            errors
         })
     }
 
@@ -32,25 +40,22 @@ class UserSignupPage extends React.Component {
         };
 
         this.setState({pendingApiCall: true});
-
-        // signup(body).then(response => {
-        //     this.setState({pendingApiCall: false});
-        // }).catch(error => {
-        //     this.setState({pendingApiCall: false});
-        // });
         
         try{
             const response = await signup(body);
-            this.setState({pendingApiCall: false});
         } catch(error) {
-            this.setState({pendingApiCall: false});
+            if(error.response.data.validationErrors){
+                this.setState({errors: error.response.data.validationErrors});
+            }
         }
+        this.setState({pendingApiCall: false});
 
     }
 
     //overrided render method
     render() {
-        const {pendingApiCall} = this.state;
+        const {pendingApiCall, errors} = this.state;
+        const {username} = errors;
         return (
           <div className="container">
               <form>
@@ -60,10 +65,13 @@ class UserSignupPage extends React.Component {
                   <div className="form-group">
                       <label>Username</label>
                       <input type="text"
-                             className="form-control"
+                             className={username?"form-control is-invalid":"form-control"}
                              name="username"
                              onChange={this.onChange}
                       />
+                      <div className="invalid-feedback">
+                        {username}
+                      </div>
                   </div>
                   <div>
                       <label>Display Name</label>
