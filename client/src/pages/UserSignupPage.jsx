@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import {signup} from '../api/apiCalls';
+import Input from '../components/Input';
 
 //stateful component
 class UserSignupPage extends React.Component {
@@ -62,27 +62,8 @@ class UserSignupPage extends React.Component {
                   <h1 className="text-center">
                       Sign up
                   </h1>
-                  <div className="form-group">
-                      <label>Username</label>
-                      <input type="text"
-                             className={username?"form-control is-invalid":"form-control"}
-                             name="username"
-                             onChange={this.onChange}
-                      />
-                      <div className="invalid-feedback">
-                        {username}
-                      </div>
-                  </div>
-                  <div>
-                      <label>Display Name</label>
-                      <input type="text"
-                             className={displayName?"form-control is-invalid":"form-control"}
-                             name="displayName"
-                             onChange={this.onChange}/>
-                      <div className="invalid-feedback">
-                        {displayName}
-                      </div>
-                  </div>
+                  <Input name="username" label="Username" error={username} onChange={this.onChange}/>
+                  <Input name="displayName" label="Display Name" error={displayName} onChange={this.onChange}/>
                   <div>
                       <label>Password</label>
                       <input type="password"
