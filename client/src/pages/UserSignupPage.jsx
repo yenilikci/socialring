@@ -40,7 +40,7 @@ class UserSignupPage extends React.Component {
         };
 
         this.setState({pendingApiCall: true});
-        
+
         try{
             const response = await signup(body);
         } catch(error) {
@@ -55,7 +55,7 @@ class UserSignupPage extends React.Component {
     //overrided render method
     render() {
         const {pendingApiCall, errors} = this.state;
-        const {username, displayName} = errors;
+        const {username, displayName, password} = errors;
         return (
           <div className="container">
               <form>
@@ -64,14 +64,7 @@ class UserSignupPage extends React.Component {
                   </h1>
                   <Input name="username" label="Username" error={username} onChange={this.onChange}/>
                   <Input name="displayName" label="Display Name" error={displayName} onChange={this.onChange}/>
-                  <div>
-                      <label>Password</label>
-                      <input type="password"
-                             className="form-control"
-                             name="password"
-                             onChange={this.onChange}
-                      />
-                  </div>
+                  <Input name="password" label="Password" error={password} onChange={this.onChange} type="password"/>
                   <div>
                       <label>Password Repeat</label>
                       <input type="password"
