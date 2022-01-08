@@ -21,7 +21,7 @@ public class User {
 	
 	@NotNull
 	@Size(min = 4, max=255)
-	@Column(unique = true)
+	@UniqueUsername
 	private String username;
 	
 	@NotNull
