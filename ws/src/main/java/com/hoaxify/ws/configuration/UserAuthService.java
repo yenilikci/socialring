@@ -10,17 +10,17 @@ import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserRepository;
 
 @Service
-public class UserAuthService implements UserDetailsService{
-	
+public class UserAuthService implements UserDetailsService {
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User inDB = userRepository.findByUsername(username);
-		if(inDB == null)
+		if (inDB == null)
 			throw new UsernameNotFoundException("User not found");
-		return new HoaxifyUserDetails(inDB);
+		return inDB;
 	}
 
 }
