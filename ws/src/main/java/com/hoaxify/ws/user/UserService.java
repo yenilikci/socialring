@@ -13,10 +13,10 @@ public class UserService {
 	
 	//constructor injection
 	//@Autowired - one constructor/non required
-	public UserService(UserRepository userRepository) {
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.userRepository = userRepository;
-		this.passwordEncoder = new BCryptPasswordEncoder();
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public void save(User user) {
