@@ -2,12 +2,35 @@ import React, {Component} from 'react';
 import Input from "../components/Input";
 import {withTranslation} from "react-i18next";
 import {login} from '../api/apiCalls';
+import axios from "axios";
 
 class LoginPage extends Component {
     state = {
         username: null,
         password: null,
-        error: null
+        error: null,
+        pendingApiCall: false
+    }
+
+    componentDidMount() {
+        axios.interceptors.request.use((request) => {
+            this.setState({
+                pendingApiCall: true
+            });
+            return request;
+        });
+
+        axios.interceptors.response.use((response) => {
+            this.setState({
+                pendingApiCall: false
+            });
+            return response;
+        },(error) => {
+            this.setState({
+                pendingApiCall: false
+            });
+            throw error;
+        });
     }
 
     onChange = event => {
@@ -39,7 +62,7 @@ class LoginPage extends Component {
 
     render() {
         const {t} = this.props;
-        const {username,password,error} = this.state;
+        const {username,password,error, pendingApiCall} = this.state;
         const buttonEnabled = username && password;
 
         return (
@@ -55,7 +78,7 @@ class LoginPage extends Component {
                     <div className="text-center">
                         <button className="btn btn-primary mt-4"
                                 onClick={this.onClickLogin}
-                                disabled={!buttonEnabled}
+                                disabled={!buttonEnabled || pendingApiCall  }
                         >{t('Login')}</button>
                     </div>
                 </form>
