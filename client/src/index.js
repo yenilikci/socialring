@@ -6,11 +6,13 @@ import UserSignupPage from "./pages/UserSignupPage";
 import LoginPage from "./pages/LoginPage";
 import reportWebVitals from './reportWebVitals';
 import './i18n';
+import LanguageSelector from "./components/LanguageSelector";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <LoginPage />
-  </React.StrictMode>,
+  <div>
+      <UserSignupPage />
+      <LanguageSelector/>
+  </div>,
   document.getElementById('root')
 );
 
