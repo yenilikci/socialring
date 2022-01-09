@@ -1,5 +1,5 @@
 import React from 'react';
-import {signup} from '../api/apiCalls';
+import {signup, changeLanguage} from '../api/apiCalls';
 import Input from '../components/Input';
 import {withTranslation} from "react-i18next";
 
@@ -65,6 +65,12 @@ class UserSignupPage extends React.Component {
 
     }
 
+    onChangeLanguage  = language => {
+        const {i18n} = this.props;
+        i18n.changeLanguage(language);
+        changeLanguage(language);
+    }
+
     //overrided render method
     render() {
         const {pendingApiCall, errors} = this.state;
@@ -77,7 +83,7 @@ class UserSignupPage extends React.Component {
                         {t('Sign up')}
                     </h1>
                     <Input name="username" label={t('Username')} error={username} onChange={this.onChange}/>
-                    <Input name="displayName" label={t('DisplayName')} error={displayName} onChange={this.onChange}/>
+                    <Input name="displayName" label={t('Display Name')} error={displayName} onChange={this.onChange}/>
                     <Input name="password" label={t('Password')} error={password} onChange={this.onChange} type="password"/>
                     <Input name="passwordRepeat" label={t('Password Repeat')} error={passwordRepeat} onChange={this.onChange}
                            type="password"/>
@@ -89,6 +95,20 @@ class UserSignupPage extends React.Component {
                             {pendingApiCall && <span className="spinner-border spinner-border-sm"></span>}
                             {t('Sign up')}
                         </button>
+                    </div>
+                    <div>
+                        <img
+                            src="https://www.countryflags.com/wp-content/uploads/turkey-flag-png-large.png"
+                            alt="Turkish Flag"
+                            style={{width: 36, height: 24, marginRight: 5, cursor: 'pointer'}}
+                            onClick={() => this.onChangeLanguage('tr')}
+                        />
+                        <img
+                            src="https://www.countryflags.com/wp-content/uploads/united-states-of-america-flag-png-large.png"
+                            alt="USA Flag"
+                            style={{width: 36, height: 24, cursor: 'pointer'}}
+                            onClick={() => this.onChangeLanguage('en')}
+                        />
                     </div>
                 </form>
             </div>
