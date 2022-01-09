@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.hoaxify.ws.error.ApiError;
+import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.Views;
 import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserRepository;
@@ -35,8 +36,7 @@ public class AuthController {
 	
 	@PostMapping("/api/1.0/auth")
 	@JsonView(Views.Base.class)
-	ResponseEntity<?> handleAuthentication(Authentication authentication) {
-		User user = (User)authentication.getPrincipal();	
+	ResponseEntity<?> handleAuthentication(@CurrentUser User user) {
 		return ResponseEntity.ok(user);
 	}
 }
