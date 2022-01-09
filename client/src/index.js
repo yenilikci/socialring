@@ -10,7 +10,7 @@ import LanguageSelector from "./components/LanguageSelector";
 
 ReactDOM.render(
   <div>
-      <UserSignupPage />
+      <LoginPage />
       <LanguageSelector/>
   </div>,
   document.getElementById('root')
