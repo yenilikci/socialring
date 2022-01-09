@@ -13,7 +13,12 @@ spring:
        persistence:
         validation:
          mode: none
+   
+ main:
+  allow-bean-definition-overriding: true
          
 logging:
   level:
     '[org.springframework]': debug
+    
+   
