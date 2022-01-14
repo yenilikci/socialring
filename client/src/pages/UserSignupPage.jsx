@@ -12,7 +12,6 @@ class UserSignupPage extends React.Component {
         displayName: null,
         password: null,
         passwordRepeat: null,
-        pendingApiCall: false,
         errors: {
             username: ""
         }
@@ -52,9 +51,6 @@ class UserSignupPage extends React.Component {
             displayName,
             password
         };
-
-        this.setState({pendingApiCall: true});
-
         try {
             const response = await signup(body);
         } catch (error) {
@@ -62,14 +58,12 @@ class UserSignupPage extends React.Component {
                 this.setState({errors: error.response.data.validationErrors});
             }
         }
-        this.setState({pendingApiCall: false});
-
     }
 
     //overrided render method
     render() {
-        const {pendingApiCall, errors} = this.state;
-        const {username, displayName, password, passwordRepeat} = errors;
+        const {errors} = this.state;
+        const {username, displayName, password, passwordRepeat, pendingApiCall} = errors;
         const {t} = this.props;
         return (
             <div className="container">

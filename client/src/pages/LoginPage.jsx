@@ -10,9 +10,8 @@ class LoginPage extends Component {
         username: null,
         password: null,
         error: null,
-        pendingApiCall: false
     }
-    
+
 
     componentDidMount() {
         axios.interceptors.request.use((request) => {
@@ -64,8 +63,8 @@ class LoginPage extends Component {
     };
 
     render() {
-        const {t} = this.props;
-        const {username, password, error, pendingApiCall} = this.state;
+        const {t, pendingApiCall} = this.props;
+        const {username, password, error} = this.state;
         const buttonEnabled = username && password;
 
         return (
