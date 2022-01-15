@@ -22,7 +22,7 @@ class TopBar extends Component {
                         </li>
                         <li>
                             <Link className="nav-link" to="/signup">
-                                {t('Sign Up')}
+                                {t('Sign up')}
                             </Link>
                         </li>
                     </ul>
