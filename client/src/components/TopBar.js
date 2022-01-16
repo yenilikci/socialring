@@ -5,14 +5,8 @@ import {withTranslation} from 'react-i18next';
 
 class TopBar extends Component {
 
-    state = {
-        isLoggedIn: true,
-        username: 'user1'
-    };
-
     render() {
-        const {t} = this.props;
-        const {isLoggedIn, username} = this.state;
+        const {t, isLoggedIn, username, onLogoutSuccess} = this.props;
 
         let links = (
             <ul className="navbar-nav ml-auto">
@@ -30,13 +24,13 @@ class TopBar extends Component {
         );
         if(isLoggedIn) {
             links = (
-                <ul className="navbar-nav ml-auto">
+                <ul className="navbar-nav ms-auto">
                     <li>
                         <Link className="nav-link" to={`/user/${username}`}>
                             {username}
                         </Link>
                     </li>
-                    <li className="nav-link">
+                    <li className="nav-link" onClick={onLogoutSuccess} style={{cursor: 'pointer'}}>
                         {t('Logout')}
                     </li>
                 </ul>
